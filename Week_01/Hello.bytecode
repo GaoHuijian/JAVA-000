@@ -1,0 +1,215 @@
+Classfile /G:/geekuniversity/src/week1_demo/out/production/week1_demo/com/gaohj/Hello.class
+  Last modified 2020-10-18; size 1049 bytes
+  MD5 checksum d00ae9234b95972d051fedc7160fb3d6
+  Compiled from "Hello.java"
+public class com.gaohj.Hello
+  minor version: 0
+  major version: 52
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool:
+   #1 = Methodref          #12.#49        // java/lang/Object."<init>":()V
+   #2 = Long               8l
+   #4 = Float              4.0f
+   #5 = Double             8.0d
+   #7 = Fieldref           #50.#51        // java/lang/System.out:Ljava/io/PrintStream;
+   #8 = Methodref          #52.#53        // java/io/PrintStream.println:(J)V
+   #9 = Methodref          #52.#54        // java/io/PrintStream.println:(D)V
+  #10 = Methodref          #52.#55        // java/io/PrintStream.println:(I)V
+  #11 = Class              #56            // com/gaohj/Hello
+  #12 = Class              #57            // java/lang/Object
+  #13 = Utf8               <init>
+  #14 = Utf8               ()V
+  #15 = Utf8               Code
+  #16 = Utf8               LineNumberTable
+  #17 = Utf8               LocalVariableTable
+  #18 = Utf8               this
+  #19 = Utf8               Lcom/gaohj/Hello;
+  #20 = Utf8               main
+  #21 = Utf8               ([Ljava/lang/String;)V
+  #22 = Utf8               add
+  #23 = Utf8               J
+  #24 = Utf8               subtract
+  #25 = Utf8               multiply
+  #26 = Utf8               D
+  #27 = Utf8               divide
+  #28 = Utf8               k
+  #29 = Utf8               I
+  #30 = Utf8               args
+  #31 = Utf8               [Ljava/lang/String;
+  #32 = Utf8               b
+  #33 = Utf8               B
+  #34 = Utf8               s
+  #35 = Utf8               S
+  #36 = Utf8               i
+  #37 = Utf8               l
+  #38 = Utf8               f
+  #39 = Utf8               F
+  #40 = Utf8               d
+  #41 = Utf8               c
+  #42 = Utf8               C
+  #43 = Utf8               bool
+  #44 = Utf8               Z
+  #45 = Utf8               StackMapTable
+  #46 = Class              #31            // "[Ljava/lang/String;"
+  #47 = Utf8               SourceFile
+  #48 = Utf8               Hello.java
+  #49 = NameAndType        #13:#14        // "<init>":()V
+  #50 = Class              #58            // java/lang/System
+  #51 = NameAndType        #59:#60        // out:Ljava/io/PrintStream;
+  #52 = Class              #61            // java/io/PrintStream
+  #53 = NameAndType        #62:#63        // println:(J)V
+  #54 = NameAndType        #62:#64        // println:(D)V
+  #55 = NameAndType        #62:#65        // println:(I)V
+  #56 = Utf8               com/gaohj/Hello
+  #57 = Utf8               java/lang/Object
+  #58 = Utf8               java/lang/System
+  #59 = Utf8               out
+  #60 = Utf8               Ljava/io/PrintStream;
+  #61 = Utf8               java/io/PrintStream
+  #62 = Utf8               println
+  #63 = Utf8               (J)V
+  #64 = Utf8               (D)V
+  #65 = Utf8               (I)V
+{
+  public com.gaohj.Hello();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: return
+      LineNumberTable:
+        line 8: 0
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   Lcom/gaohj/Hello;
+
+  public static void main(java.lang.String[]);
+    descriptor: ([Ljava/lang/String;)V
+    flags: ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=4, locals=19, args_size=1
+         0: iconst_1
+         1: istore_1
+         2: iconst_2
+         3: istore_2
+         4: iconst_4
+         5: istore_3
+         6: ldc2_w        #2                  // long 8l
+         9: lstore        4
+        11: ldc           #4                  // float 4.0f
+        13: fstore        6
+        15: ldc2_w        #5                  // double 8.0d
+        18: dstore        7
+        20: bipush        67
+        22: istore        9
+        24: iconst_1
+        25: istore        10
+        27: iload         10
+        29: ifeq          104
+        32: iload_1
+        33: iload_2
+        34: iadd
+        35: iload_3
+        36: iadd
+        37: i2l
+        38: lload         4
+        40: ladd
+        41: lstore        11
+        43: lload         4
+        45: iload_3
+        46: i2l
+        47: lsub
+        48: iload_2
+        49: i2l
+        50: lsub
+        51: iload_1
+        52: i2l
+        53: lsub
+        54: lstore        13
+        56: dload         7
+        58: lload         4
+        60: l2d
+        61: dmul
+        62: dstore        15
+        64: dload         7
+        66: lload         4
+        68: l2d
+        69: ddiv
+        70: dstore        17
+        72: getstatic     #7                  // Field java/lang/System.out:Ljava/io/PrintStream;
+        75: lload         11
+        77: invokevirtual #8                  // Method java/io/PrintStream.println:(J)V
+        80: getstatic     #7                  // Field java/lang/System.out:Ljava/io/PrintStream;
+        83: lload         13
+        85: invokevirtual #8                  // Method java/io/PrintStream.println:(J)V
+        88: getstatic     #7                  // Field java/lang/System.out:Ljava/io/PrintStream;
+        91: dload         15
+        93: invokevirtual #9                  // Method java/io/PrintStream.println:(D)V
+        96: getstatic     #7                  // Field java/lang/System.out:Ljava/io/PrintStream;
+        99: dload         17
+       101: invokevirtual #9                  // Method java/io/PrintStream.println:(D)V
+       104: iconst_0
+       105: istore        11
+       107: iload         11
+       109: i2l
+       110: lload         4
+       112: lcmp
+       113: ifge          130
+       116: getstatic     #7                  // Field java/lang/System.out:Ljava/io/PrintStream;
+       119: iload         11
+       121: invokevirtual #10                 // Method java/io/PrintStream.println:(I)V
+       124: iinc          11, 1
+       127: goto          107
+       130: return
+      LineNumberTable:
+        line 11: 0
+        line 12: 2
+        line 13: 4
+        line 14: 6
+        line 16: 11
+        line 17: 15
+        line 19: 20
+        line 21: 24
+        line 22: 27
+        line 23: 32
+        line 24: 43
+        line 25: 56
+        line 26: 64
+        line 28: 72
+        line 29: 80
+        line 30: 88
+        line 31: 96
+        line 35: 104
+        line 36: 116
+        line 35: 124
+        line 38: 130
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+           43      61    11   add   J
+           56      48    13 subtract   J
+           64      40    15 multiply   D
+           72      32    17 divide   D
+          107      23    11     k   I
+            0     131     0  args   [Ljava/lang/String;
+            2     129     1     b   B
+            4     127     2     s   S
+            6     125     3     i   I
+           11     120     4     l   J
+           15     116     6     f   F
+           20     111     7     d   D
+           24     107     9     c   C
+           27     104    10  bool   Z
+      StackMapTable: number_of_entries = 3
+        frame_type = 255 /* full_frame */
+          offset_delta = 104
+          locals = [ class "[Ljava/lang/String;", int, int, int, long, float, double, int, int ]
+          stack = []
+        frame_type = 252 /* append */
+          offset_delta = 2
+          locals = [ int ]
+        frame_type = 250 /* chop */
+          offset_delta = 22
+}
+SourceFile: "Hello.java"
