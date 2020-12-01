@@ -10,4 +10,6 @@ public interface UserDao {
     public List<User> findList(User user);
 
     public int save(User user);
+
+    public int update(User user);
 }
