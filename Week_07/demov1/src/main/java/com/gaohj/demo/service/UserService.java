@@ -1,5 +1,6 @@
 package com.gaohj.demo.service;
 
+import com.gaohj.demo.config.ReadOnlyConnection;
 import com.gaohj.demo.dao.UserDao;
 import com.gaohj.demo.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ public class UserService {
     @Autowired
     private UserDao userDao;
 
+    @ReadOnlyConnection
     public List<User> findList(User user){
         return userDao.findList(user);
     }

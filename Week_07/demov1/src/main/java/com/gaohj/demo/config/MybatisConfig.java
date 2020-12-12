@@ -1,48 +1,64 @@
 package com.gaohj.demo.config;
 
+import org.apache.ibatis.mapping.DatabaseIdProvider;
+import org.apache.ibatis.plugin.Interceptor;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.aspectj.apache.bcel.util.ClassLoaderRepository;
+import org.mybatis.spring.annotation.MapperScan;
+import org.mybatis.spring.boot.autoconfigure.ConfigurationCustomizer;
+import org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration;
+import org.mybatis.spring.boot.autoconfigure.MybatisProperties;
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Configuration
-public class MybatisConfig {
+@AutoConfigureAfter({DataSourceConfig.class})
+@MapperScan(basePackages= "com.gaohj.demo.dao", sqlSessionFactoryRef = "sqlSessionFactory1")
+public class MybatisConfig extends MybatisAutoConfiguration {
 
-    @Bean("writeDb")
-    @Primary
-    @ConfigurationProperties(prefix = "spring.datasource.write")
-    public DataSource write(){
-        return DataSourceBuilder.create().build();
+
+    @Resource(name="writeDb")
+    private DataSource writeDb;
+
+    @Resource(name="readDb1")
+    private DataSource readDb1;
+
+    @Resource(name="readDb2")
+    private DataSource readDb2;
+
+    public MybatisConfig(MybatisProperties properties, ObjectProvider<Interceptor[]> interceptorsProvider, ResourceLoader resourceLoader, ObjectProvider<DatabaseIdProvider> databaseIdProvider, ObjectProvider<List<ConfigurationCustomizer>> configurationCustomizersProvider) {
+        super(properties, interceptorsProvider, resourceLoader, databaseIdProvider, configurationCustomizersProvider);
     }
 
-    @Bean("readDb1")
-    @ConfigurationProperties(prefix = "spring.datasource.read1")
-    public DataSource read1(){
-        return DataSourceBuilder.create().build();
+    public AbstractRoutingDataSource roundRobinDataSourceProxy() {
+        DynamicDataSource proxy = new DynamicDataSource();
+        Map<Object, Object> targetDataSource = new HashMap<>();
+        targetDataSource.put(DataBaseContextHoldle.DataBaseType.WRITE, writeDb);
+        targetDataSource.put(DataBaseContextHoldle.DataBaseType.READ1, readDb1);
+         targetDataSource.put(DataBaseContextHoldle.DataBaseType.READ2, readDb2);
+        //默认数据源
+        proxy.setDefaultTargetDataSource(writeDb);
+        //装入两个主从数据源
+        proxy.setTargetDataSources(targetDataSource);
+        proxy.afterPropertiesSet();
+        return proxy;
     }
 
-    @Bean("readDb2")
-    @ConfigurationProperties(prefix = "spring.datasource.read2")
-    public DataSource read2(){
-        return DataSourceBuilder.create().build();
-    }
-
-    @Bean("dynamicDataSource")
-    public DataSource dynamicDataSource() {
-        DynamicDataSource dynamicDataSource = new DynamicDataSource();
-        Map<Object, Object> dataSourceMap = new HashMap<>(2);
-        dataSourceMap.put("write", write());
-        dataSourceMap.put("read1", read1());
-        dataSourceMap.put("read2", read2());
-        // 将 master 数据源作为默认指定的数据源
-        dynamicDataSource.setDefaultDataSource(write());
-        // 将 master 和 slave 数据源作为指定的数据源
-        dynamicDataSource.setDataSources(dataSourceMap);
-        return dynamicDataSource;
+    @Bean(name="sqlSessionFactory1")
+    public SqlSessionFactory sqlSessionFactory() throws Exception {
+        return super.sqlSessionFactory(roundRobinDataSourceProxy());
     }
 }
